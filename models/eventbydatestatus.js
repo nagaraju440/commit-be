@@ -1,30 +1,23 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-    class Participant extends Model {
+    class EventByDateStatus extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            this.belongsToMany(models.Event, {
-                through: "event_participant",
+            this.belongsTo(models.Event, {
                 foreignKey: {
-                    name: "participant_id",
+                    name: "event_id",
+                    allowNull: false,
                 },
                 as: "Event",
             });
-            this.hasMany(models.EventParticipantAttendence, {
-                foreignKey: {
-                    name: "participant_id",
-                    allowNull: false,
-                },
-                as: "EventParticipantAttendence",
-            });
         }
     }
-    Participant.init(
+    EventByDateStatus.init(
         {
             id: {
                 allowNull: false,
@@ -32,23 +25,22 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
                 type: DataTypes.INTEGER,
             },
-            name: {
-                type: DataTypes.STRING,
-                unique: true,
-                allowNull: false,
+            event_id: {
+                type: DataTypes.INTEGER,
             },
-            mobile: {
+            date: {
                 type: DataTypes.STRING,
             },
-            email: {
-                type: DataTypes.STRING,
+            is_taken: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false,
             },
         },
         {
             sequelize,
-            modelName: "Participant",
-            tableName: "participant",
+            modelName: "EventByDateStatus",
+            tableName: "event_date_status",
         }
     );
-    return Participant;
+    return EventByDateStatus;
 };

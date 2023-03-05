@@ -22,6 +22,13 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 as: "Participant",
             });
+            this.hasMany(models.EventParticipantAttendence, {
+                foreignKey: {
+                    name: "event_id",
+                    allowNull: false,
+                },
+                as: "EventParticipantAttendence",
+            });
         }
     }
     Event.init(
@@ -41,6 +48,9 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
             },
             event_time: {
+                type: DataTypes.STRING,
+            },
+            image_link: {
                 type: DataTypes.STRING,
             },
         },

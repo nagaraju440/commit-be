@@ -2,26 +2,22 @@
 
 module.exports = {
     up: async (queryInterface, DataTypes) => {
-        await queryInterface.createTable("event", {
+        await queryInterface.createTable("event_date_status", {
             id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
                 allowNull: false,
                 autoIncrement: true,
             },
-            name: {
-                type: DataTypes.STRING,
-                unique: true,
-                allowNull: false,
-            },
-            group_id: {
+            event_id: {
                 type: DataTypes.INTEGER,
             },
-            event_time: {
+            date: {
                 type: DataTypes.STRING,
             },
-            image_link: {
-                type: DataTypes.STRING,
+            is_taken: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false,
             },
             createdAt: {
                 allowNull: false,
@@ -34,6 +30,6 @@ module.exports = {
         });
     },
     down: async (queryInterface, DataTypes) => {
-        await queryInterface.dropTable("event");
+        await queryInterface.dropTable("event_date_status");
     },
 };

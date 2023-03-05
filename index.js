@@ -7,7 +7,7 @@ const routes = require("./routes");
 const { sequelize } = require("./models");
 
 var corsOptions = {
-    origin: "http://localhost:3000/",
+origin: "*",
 };
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
@@ -18,7 +18,7 @@ app.get("/", function (req, res) {
     res.send("Hello World");
 });
 
-var server = app.listen(4000, async function () {
+var server = app.listen(4000, "192.168.0.109", async function () {
     var host = server.address().address;
     var port = server.address().port;
     console.log("Example app listening at http://%s:%s", host, port);
